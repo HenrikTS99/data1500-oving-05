@@ -14,17 +14,6 @@
 ```yaml
 services:
   postgres:
-    image: postgres:14-alpine
-    environment:
-      POSTGRES_DB: hobbyhuset
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5442:5432"
-    volumes:
-      - ./init-scripts:/docker-entrypoint-initdb.d
-services:
-  postgres:
     image: postgres:15-alpine
     container_name: hobbyhuset
     environment:
@@ -123,6 +112,13 @@ networks:
 4.  Finn alle varer som aldri har blitt solgt (dvs. ikke finnes i `Ordrelinje`).
 5.  Finn totalt antall solgte enheter for hver vare (bruk `Ordrelinje`).
 6.  Finn navnet på alle ansatte som bor i Bø i Telemark.
+
+
+OBS! For å kunne løse oppgavene 5 og 6, må man utvide databaseskjema for hobbyhuset og legge inn noen testdata. Det kan gjøres med følgende kommandoen fra mappen hvor denne filen ligger:
+```bash
+docker-compose exec postgres psql -U admin -d hobbyhuset -f test-scripts/hobbyhuset_utvidet_05-6.sql
+```
+
 
 ### Oppgave 5: NULL-verdier og Aggregeringsfunksjoner
 
