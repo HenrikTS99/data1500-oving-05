@@ -206,5 +206,28 @@ WHERE bonus = (
 );
 
 
+-- Del 6 - Tre-verdi Logikk (TRUE, FALSE, UNKNOWN)
 
+-- Finn alle ordrer som verken er bekreftet betalt eller bekreftet ikke-betalt (dvs. de hvor logikken er UNKNOWN).
+SELECT * FROM ordre WHERE erbetalt IS UNKNOWN;
+
+
+-- List opp alle ansatte som har en bonus som er enten NULL eller mindre enn 6000.
+SELECT * FROM ansatt WHERE bonus IS NULL OR bonus < 6000;
+
+
+-- Finn antall kunder som ikke har telefonnummer 41234567 (pass på å inkludere de med NULL telefonnummer i tellingen).
+SELECT COUNT(*) AS antall_kunder
+FROM kunde
+WHERE telefon <> '41234567' OR telefon IS NULL;
+
+-- Alternative
+SELECT COUNT(*) AS antall_kunder
+FROM kunde
+WHERE COALESCE(telefon, '') != '41234567';
+
+
+-- List opp alle ordrer som er betalt (ErBetalt = TRUE), men hvor SendtDato er NULL.
+SELECT * FROM ordre
+WHERE erbetalt IS TRUE AND sendtdato IS NULL;
 
